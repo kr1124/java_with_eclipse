@@ -1,0 +1,4 @@
+# department table
+department_insert insert into department values(?,?,?,?)
+department_select select deptno, dname, college, loc \
+					from department

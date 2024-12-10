@@ -1,0 +1,2 @@
+# department table
+department_insert insert into department values(?,?,?,?)

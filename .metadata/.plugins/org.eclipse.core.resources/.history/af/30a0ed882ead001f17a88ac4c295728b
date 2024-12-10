@@ -1,0 +1,34 @@
+package com.dbex;
+
+import java.sql.*;
+
+import buf.cio;
+
+public class JDbcEx01 {
+
+	public static void main(String[] args) {		
+		Connection con = null; //연결위치?
+		Statement stmt = null;
+		
+		try {
+			
+		} catch (ClassNotFoundException cn) {
+			cn.printStackTrace();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} finally {
+			try {
+				if(stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException se) {}
+			try {
+				if(con != null) {
+					con.close();
+				}
+			} catch (SQLException se) {}
+		}
+		
+	}
+
+}

@@ -1,0 +1,98 @@
+package com.dbex;
+
+/*
+ * jdbc를 이용한 데이터베이스 연결방법
+ * 
+ * 1 단계 : import java.sql.*;
+ * 2 단계 : 특정 Driver 검색
+ * 			msaccess
+ * 			mssql
+ * 			mysql : com.mysql.cj.jdbc.Driver
+ * 			mariadb : org.mairadb.jdbc.Driver (버전마다 다르다는데 아무튼 이런식임)
+ * 			oracle -> (oracle.jdbc.driver.OracleDriver)
+ * 
+ * 
+ * 
+ * 
+ * */
+
+import java.sql.*;
+
+import buf.cio;
+
+public class JDbcEx01 {
+
+	public static void main(String[] args) {		
+		Connection con = null; //연결위치?
+		Statement stmt = null;
+		
+		try {
+			//jdbc 드라이브 로드
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			// Connection 객체 (데이터베이스 연결)
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+			
+			//cio.wnlf("데이터베이스 연결이 성공적으로 진행되었습니다.");
+			
+			//statement 객체 얻기
+			stmt = con.createStatement();
+			
+			//sql문 작성
+			String sql = "insert into department values(203, '제어계측공학과', 200, '7호관')";
+			
+			//쿼리 실행
+			int result = stmt.executeUpdate(sql);
+			
+			cio.wnlf(result + "행이 추가 되었습니다.");
+			
+			
+			
+			
+		} catch (ClassNotFoundException cn) {
+			cn.printStackTrace();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} finally {
+			try {
+				if(stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException se) {}
+			try {
+				if(con != null) {
+					con.close();
+				}
+			} catch (SQLException se) {}
+		}
+		
+	}
+	
+// 기본 세팅
+	
+//	public static void main(String[] args) {		
+//		Connection con = null; //연결위치?
+//		Statement stmt = null;
+//		
+//		try {
+//			
+//		} catch (ClassNotFoundException cn) {
+//			cn.printStackTrace();
+//		} catch (SQLException s) {
+//			s.printStackTrace();
+//		} finally {
+//			try {
+//				if(stmt != null) {
+//					stmt.close();
+//				}
+//			} catch (SQLException se) {}
+//			try {
+//				if(con != null) {
+//					con.close();
+//				}
+//			} catch (SQLException se) {}
+//		}
+//		
+//	}
+
+}

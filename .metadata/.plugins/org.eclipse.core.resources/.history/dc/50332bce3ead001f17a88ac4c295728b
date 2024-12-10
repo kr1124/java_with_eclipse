@@ -1,0 +1,57 @@
+package com.dbex;
+
+import java.sql.*;
+
+import buf.cio;
+
+/* ResultSet
+ * 
+ * 	- select 쿼리의 수행 결과로 얻어진 결과 집합을 추상화 한 것임
+ * 	- 결과 집합에서 데이터를 가져올 수 있는 다양한 메소드와 cursor를 포함하고 있다.
+ * 
+ * 	first(), last(), next(), previous(), close(),
+ * 	int -> getInt(index-위치), getInt(name-이름)
+ * 	string -> getString(index-위치), getString(name-이름)
+ * 
+ * 	ResultSet 내에는 오라클 자료형 마다 두개의 getXXX() 메소드가 존재한다.
+ *  
+ * */
+
+public class JDbcEx04 {
+	//select
+	public static void main(String[] args) {
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		String sql = "select * from department";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "scott", "tiger");
+
+			stmt = con.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			cio.wnlf(result + "행이 삭제 되었습니다.");
+		} catch (ClassNotFoundException cn) {
+			cn.printStackTrace();
+		} catch (SQLException s) {
+			s.printStackTrace();
+		} finally {
+			try {
+				if(stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException se) {}
+			try {
+				if(con != null) {
+					con.close();
+				}
+			} catch (SQLException se) {}
+		}
+		
+	}
+}
